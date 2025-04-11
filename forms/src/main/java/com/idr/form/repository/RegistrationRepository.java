@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RegistrationRepository extends JpaRepository<Field, Long> {
-    // Optional: for login
     Optional<Field> findByEmailAndPassword(String email, String password);
     Optional<Field> findByEmail(String email);
 
