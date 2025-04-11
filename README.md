@@ -45,8 +45,8 @@ Before setting up the project, ensure you have the following installed:
 3. Configure `application.properties`:
    ```properties
    spring.datasource.url=jdbc:mysql://localhost:3306/demo
-   spring.datasource.username=root
-   spring.datasource.password=root
+   spring.datasource.username="YOUR USERNAME"
+   spring.datasource.password="YOUR PASSWORD"
    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
    
    spring.jpa.hibernate.ddl-auto=update
