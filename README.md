@@ -87,7 +87,6 @@ Before setting up the project, ensure you have the following installed:
 - POST `/forms` - Register a new user
 - GET `/forms/email/{email}` - Get user by email
 - GET `/forms/{id}` - Get user by ID
-- DELETE `/forms/{id}` - Delete user by ID
 
 ### Post Management (`/posts`)
 - POST `/posts` - Create a post
