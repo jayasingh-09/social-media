@@ -26,12 +26,6 @@ public class RegistrationResource {
     public Field createForm(@RequestBody Field field) {
         return registrationRepository.save(field);
     }
-
-    // DELETE: Remove form entry by ID
-    @DeleteMapping("/{id}")
-    public void deleteForm(@PathVariable Long id) {
-        registrationRepository.deleteById(id);
-    }
     @GetMapping("/email/{email}")
         public Field getUserByEmail(@PathVariable String email) {
             return registrationRepository.findByEmail(email).orElse(null);
