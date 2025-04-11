@@ -35,8 +35,8 @@ Before setting up the project, ensure you have the following installed:
 ### Backend Setup (Spring Boot)
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo/forms-app.git
-   cd forms-app
+   git clone https://github.com/your-repo/social-media.git
+   cd social-media
    ```
 2. Set up MySQL Database:
    ```sh
