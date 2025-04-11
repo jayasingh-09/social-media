@@ -40,7 +40,6 @@ function Login() {
       );
 
       if (matchedUser) {
-        alert("Login successful!");
         navigate(`/home/${formData.email}`);
       } else {
         setError("Invalid email or password.");

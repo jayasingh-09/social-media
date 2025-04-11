@@ -68,8 +68,7 @@ function Post() {
 
     try {
       await axios.post("http://localhost:8080/posts", postData);
-      alert("Post submitted!");
-      navigate(`/home/${email}`);
+            navigate(`/home/${email}`);
     } catch (err) {
       console.error("Error posting:", err);
       alert("Failed to submit post.");

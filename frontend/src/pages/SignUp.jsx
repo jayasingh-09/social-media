@@ -58,7 +58,6 @@ function SignUp() {
       });
 
       if (res.status === 200) {
-        alert("User registered successfully!");
         navigate(`/home/${formData.email}`);
       } else {
         alert(res.data.message || "Registration failed.");
