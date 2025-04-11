@@ -9,6 +9,7 @@ import {
   Card,
   CardMedia,
   CardContent,
+  Paper,
 } from "@mui/material";
 import { getNearbyPosts } from "../services/api";
 
@@ -74,33 +75,72 @@ function Home() {
   }, [user]);
 
   return (
-    <Container component="main" maxWidth="sm">
-      <Box sx={{ mt: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Hi {user?.firstName || "loading..."} 👋
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Welcome to your dashboard!
-        </Typography>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        py: 6,
+        px: 2,
+      }}
+    >
+      <Paper
+        elevation={10}
+        sx={{
+          px: 6,
+          py: 5,
+          borderRadius: 4,
+          width: { xs: "90%", sm: "600px", md: "700px" },
+          backgroundColor: "#fff",
+        }}
+      >
+        <Box display="flex" flexDirection="column" alignItems="center">
+          <Typography
+            component="h1"
+            variant="h4"
+            color="primary"
+            fontWeight="bold"
+            sx={{ mb: 1 }}
+          >
+            Hi {user?.firstName} 
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Welcome to your dashboard!
+          </Typography>
+        </Box>
 
-        {user && (
-          <Box sx={{ mt: 2 }}>
-            <Typography variant="subtitle1">
-              <strong>User ID:</strong> {user.uid}
-            </Typography>
-            <Typography variant="subtitle1">
-              <strong>Name:</strong> {user.firstName} {user.lastName}
-            </Typography>
-            <Typography variant="subtitle1">
-              <strong>Email:</strong> {user.email}
-            </Typography>
-          </Box>
-        )}
+        {/*
+          {user && (
+            <Box sx={{ mt: 3 }}>
+              <Typography variant="subtitle1">
+                <strong>User ID:</strong> {user.uid}
+              </Typography>
+              <Typography variant="subtitle1">
+                <strong>Name:</strong> {user.firstName} {user.lastName}
+              </Typography>
+              <Typography variant="subtitle1">
+                <strong>Email:</strong> {user.email}
+              </Typography>
+            </Box>
+          )}
+          */}
 
         <Button
           variant="contained"
-          color="primary"
-          sx={{ mt: 3 }}
+          sx={{
+            mt: 3,
+            py: 1.5,
+            background: "linear-gradient(to right, #3f51b5, #2196f3)",
+            color: "white",
+            fontWeight: "bold",
+            borderRadius: "8px",
+            transition: "0.3s",
+            "&:hover": {
+              background: "linear-gradient(to right, #303f9f, #1976d2)",
+              transform: "scale(1.05)",
+            },
+          }}
           onClick={() => navigate(`/post/${email}`)}
         >
           Create a Post
@@ -112,26 +152,48 @@ function Home() {
             locationsMap[key] || `(${post.latitude}, ${post.longitude})`;
 
           return (
-            <Card key={idx} sx={{ mt: 3 }}>
+            <Card
+              key={idx}
+              sx={{
+                mt: 3,
+                borderRadius: 3,
+                boxShadow: 5,
+                transition: "0.3s",
+                "&:hover": { boxShadow: 8, transform: "scale(1.02)" },
+              }}
+            >
               {post.imageUrl && (
                 <CardMedia
                   component="img"
                   image={post.imageUrl}
                   alt="Post"
                   height="300"
+                  sx={{
+                    objectFit: "cover",
+                    borderRadius: "8px 8px 0 0",
+                  }}
                 />
               )}
               <CardContent>
-                <Typography variant="body1">{post.content}</Typography>
-                <Typography variant="caption" color="text.secondary">
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ display: "block", mt: 1 }}
+                >
                   📍 {location}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ fontWeight: "bold", fontSize: "1rem" }}
+                >
+                  {post.content}
                 </Typography>
               </CardContent>
             </Card>
           );
         })}
-      </Box>
-    </Container>
+      </Paper>
+    </Box>
   );
 }
 

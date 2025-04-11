@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import axios from "axios";
 import {
-  Container,
+  Avatar,
   Box,
-  Typography,
-  TextField,
   Button,
   Grid,
   Link,
+  TextField,
+  Typography,
+  Paper,
 } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 function Login() {
   const navigate = useNavigate();
@@ -17,7 +19,6 @@ function Login() {
     email: "",
     password: "",
   });
-
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -39,27 +40,8 @@ function Login() {
       );
 
       if (matchedUser) {
-        // ✅ Get current location
-        navigator.geolocation.getCurrentPosition(
-          async (position) => {
-            const updatedUser = {
-              ...matchedUser,
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            };
-
-            // ✅ Update user in backend
-            await axios.post("http://localhost:8080/forms", updatedUser);
-
-            alert("Login successful with location update!");
-            navigate(`/home/${formData.email}`);
-          },
-          (err) => {
-            console.error("Location access denied:", err);
-            alert("Login successful (location update failed)");
-            navigate(`/home/${formData.email}`);
-          }
-        );
+        alert("Login successful!");
+        navigate(`/home/${formData.email}`);
       } else {
         setError("Invalid email or password.");
       }
@@ -70,17 +52,45 @@ function Login() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box>
-        <Typography component="h1" variant="h5">
-          Login
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        background: "linear-gradient(to right, #3f51b5, #2196f3)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        py: 6,
+      }}
+    >
+      <Paper
+        elevation={8}
+        sx={{
+          px: 6,
+          py: 5,
+          borderRadius: 4,
+          width: { xs: "90%", sm: "400px" },
+          backgroundColor: "#fff",
+        }}
+      >
+        <Box display="flex" flexDirection="column" alignItems="center">
+          <Avatar sx={{ m: 1, bgcolor: "#3f51b5" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography
+            component="h1"
+            variant="h5"
+            color="primary"
+            fontWeight="bold"
+          >
+            Login
+          </Typography>
+        </Box>
+
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <TextField
             required
             fullWidth
             margin="normal"
-            id="email"
             name="email"
             label="Email"
             type="email"
@@ -92,7 +102,6 @@ function Login() {
             required
             fullWidth
             margin="normal"
-            id="password"
             name="password"
             label="Password"
             type="password"
@@ -108,20 +117,41 @@ function Login() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{
+              mt: 3,
+              py: 1.5,
+              background: "linear-gradient(to right, #3f51b5, #2196f3)",
+              color: "white",
+              fontWeight: "bold",
+              "&:hover": {
+                background: "linear-gradient(to right, #303f9f, #1976d2)",
+              },
+            }}
           >
             Login
           </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link component={RouterLink} to="/signup" variant="body2">
-                Don't have an account? Sign Up
+          <Grid container justifyContent="flex-end" mt={2}>
+            <Link href="#" variant="body2" color="primary">
+              Forgot password?
+            </Link>
+          </Grid>
+          <Grid container justifyContent="center" mt={2}>
+            <Typography variant="body2">
+              Don't have an account?{" "}
+              <Link
+                component={RouterLink}
+                to="/"
+                variant="body2"
+                color="primary"
+                sx={{ ml: 0.5 }}
+              >
+                Sign Up
               </Link>
-            </Grid>
+            </Typography>
           </Grid>
         </Box>
-      </Box>
-    </Container>
+      </Paper>
+    </Box>
   );
 }
 
