@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
-  Container,
   Typography,
   Box,
   Button,
@@ -79,71 +78,53 @@ function Home() {
       sx={{
         minHeight: "100vh",
         display: "flex",
-        alignItems: "center",
         justifyContent: "center",
-        py: 6,
-        px: 2,
+        py: 4,
+        backgroundColor: "#f5f8fa",
       }}
     >
       <Paper
-        elevation={10}
+        elevation={0}
         sx={{
-          px: 6,
-          py: 5,
-          borderRadius: 4,
-          width: { xs: "90%", sm: "600px", md: "700px" },
+          px: 2,
+          py: 2,
+          borderRadius: 0,
+          width: "100%",
+          maxWidth: "600px",
           backgroundColor: "#fff",
         }}
       >
-        <Box display="flex" flexDirection="column" alignItems="center">
+        <Box display="flex" flexDirection="column" alignItems="flex-start">
           <Typography
             component="h1"
-            variant="h4"
-            color="primary"
+            variant="h5"
             fontWeight="bold"
             sx={{ mb: 1 }}
           >
-            Hi {user?.firstName} 
+            Hi {user?.firstName}
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body2" color="text.secondary">
             Welcome to your dashboard!
           </Typography>
         </Box>
 
-        {/*
-          {user && (
-            <Box sx={{ mt: 3 }}>
-              <Typography variant="subtitle1">
-                <strong>User ID:</strong> {user.uid}
-              </Typography>
-              <Typography variant="subtitle1">
-                <strong>Name:</strong> {user.firstName} {user.lastName}
-              </Typography>
-              <Typography variant="subtitle1">
-                <strong>Email:</strong> {user.email}
-              </Typography>
-            </Box>
-          )}
-          */}
-
         <Button
+          fullWidth
           variant="contained"
           sx={{
-            mt: 3,
-            py: 1.5,
-            background: "linear-gradient(to right, #3f51b5, #2196f3)",
-            color: "white",
+            mt: 2,
+            py: 1,
             fontWeight: "bold",
-            borderRadius: "8px",
-            transition: "0.3s",
+            borderRadius: "30px",
+            textTransform: "none",
+            background: "#1DA1F2",
             "&:hover": {
-              background: "linear-gradient(to right, #303f9f, #1976d2)",
-              transform: "scale(1.05)",
+              background: "#1A91DA",
             },
           }}
           onClick={() => navigate(`/post/${email}`)}
         >
-          Create a Post
+          Create Post
         </Button>
 
         {posts.map((post, idx) => {
@@ -154,12 +135,12 @@ function Home() {
           return (
             <Card
               key={idx}
+              variant="outlined"
               sx={{
                 mt: 3,
-                borderRadius: 3,
-                boxShadow: 5,
-                transition: "0.3s",
-                "&:hover": { boxShadow: 8, transform: "scale(1.02)" },
+                border: "1px solid #e1e8ed",
+                borderRadius: 0,
+                backgroundColor: "#fff",
               }}
             >
               {post.imageUrl && (
@@ -167,24 +148,29 @@ function Home() {
                   component="img"
                   image={post.imageUrl}
                   alt="Post"
-                  height="300"
+                  height="280"
                   sx={{
                     objectFit: "cover",
-                    borderRadius: "8px 8px 0 0",
                   }}
                 />
               )}
-              <CardContent>
+              <CardContent sx={{ p: 2 }}>
+                <Typography
+                  variant="subtitle2"
+                  sx={{ fontWeight: "bold", color: "#14171A" }}
+                >
+                  {post.user?.firstName || "Unknown User"}
+                </Typography>
                 <Typography
                   variant="caption"
                   color="text.secondary"
-                  sx={{ display: "block", mt: 1 }}
+                  sx={{ display: "block", mb: 1 }}
                 >
                   📍 {location}
                 </Typography>
                 <Typography
-                  variant="body1"
-                  sx={{ fontWeight: "bold", fontSize: "1rem" }}
+                  variant="body2"
+                  sx={{ fontSize: "0.95rem", color: "#0f1419" }}
                 >
                   {post.content}
                 </Typography>
